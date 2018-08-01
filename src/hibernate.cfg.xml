@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- 必须的配置5个 四大参数  ，数据库方言-->
+		<!-- 配置四大参数 -->
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql:///voteproject</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">root</property>
+		<!-- 数据库方言 -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<!-- hibernate可选配置 -->
+		<!-- 控制台显示sql语句 -->
+		<property name="hibernate.show_sql">true</property>
+		<!-- sql语句格式化 -->
+		<property name="hibernate.format_sql">true</property>
+		<!-- 线程绑定设置 -->
+		<property name="hibernate.current_session_context_class">thread</property>
+		<!-- 加载映射 -->
+		<mapping resource="cn/voteproject/domain/user.hbm.xml"/>
+		<mapping resource="cn/voteproject/domain/vote.hbm.xml"/>
+		<mapping resource="cn/voteproject/domain/voteoption.hbm.xml"/>
+	</session-factory>
+</hibernate-configuration>

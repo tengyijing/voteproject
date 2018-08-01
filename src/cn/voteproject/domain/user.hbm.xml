@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.voteproject.domain.User" table="v_user">
+		<id name="userid" column="userid">
+			<generator class="uuid"/>
+		</id>
+		
+		<property name="username" column="username"></property>
+		<property name="password" column="password"></property>
+		<property name="email" column="email"></property>
+		<property name="age" column="age"></property>
+		<property name="isdel" column="isdel"></property>
+		<property name="sex" column="sex"></property>
+		
+		<!-- 
+			set标签:* name属性:多的一方的集合的属性名称.
+		 -->
+		
+		<!-- 与投票活动表配置一对多关联 -->
+		<set name="voteset" cascade="save-update">
+			<!-- key标签 :  * column属性:多的一方的外键的名称.-->
+			<key column="userid"></key>
+			<!-- one-to-many标签    * class属性:多的一方的类全路径 -->
+			<one-to-many class="cn.voteproject.domain.Vote"/>
+		</set>
+		
+		<!-- 与投票项配置多对多关联 -->
+		<set name="optionset" table="v_uservoteoption" cascade="save-update">
+			<!-- 当前类中在中间表外键的名称 -->
+			<key column="userid"/>
+			<many-to-many class="cn.voteproject.domain.VoteOption" column="vptid"/>
+		</set>
+		
+		<!-- 参与者与参与活动的多对多关联 -->
+		<set name="votes" table="v_ujoinvote" cascade="save-update">
+			<key column="userid"/>
+			<many-to-many class="cn.voteproject.domain.Vote" column="vid"/>
+		</set>
+		
+	</class>
+</hibernate-mapping>

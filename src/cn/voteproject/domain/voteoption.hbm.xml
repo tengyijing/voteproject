@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.voteproject.domain.VoteOption" table="v_voteoption">
+		<id name="vptid" column="vptid">
+			<generator class="native"/>
+		</id>
+		
+		<property name="name" column="optionvalue"></property>
+		<property name="imgsrc" column="imgsrc"></property>
+		<property name="amount" column="amount"></property>
+		
+		<!-- 创建投票项与活动的多对一关联 -->
+		<many-to-one name="Vote" class="cn.voteproject.domain.Vote" column="vid" lazy="false"/>
+		
+		<!-- 创建投票项与用户的多对多关联 -->
+		<set name="users" table="v_uservoteoption" cascade="save-update" inverse="true" lazy="false">
+			<key column="vptid"/>
+			<many-to-many class="cn.voteproject.domain.User" column="userid"/>
+		</set>
+		
+	</class>
+</hibernate-mapping>
